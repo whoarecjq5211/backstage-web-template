@@ -1,0 +1,39 @@
+<configuration scan="true">
+    <statusListener class="ch.qos.logback.core.status.OnConsoleStatusListener"/>
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d [%thread] %-5level %logger{36} %line - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+
+    <appender name="FILEAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>logs/record.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>logs/record.log-%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>200MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+            <maxHistory>5</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d [%thread] %-5level %logger{36} %line - %msg%n</pattern>
+        </encoder>
+    </appender>
+	
+    <appender name="FILE" class="ch.qos.logback.classic.AsyncAppender">
+        <appender-ref ref="FILEAppender"/>
+    </appender>
+
+	 <logger name="org.beckoning.web.loading">
+		<appender-ref ref="FILE"/>
+	</logger>
+	<logger name="org.apache.ibatis">
+		<appender-ref ref="FILE"/>
+	</logger>
+    <root level="DEBUG">
+        <appender-ref ref="STDOUT"/>
+    </root>
+   
+</configuration>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.beckoning.web.loading.management.mapper.MenuInfoMapper">
+  <resultMap id="BaseResultMap" type="org.beckoning.web.loading.management.modle.MenuInfo">
+    <result column="menu_id" jdbcType="INTEGER" property="menuId" />
+    <result column="menu_name" jdbcType="VARCHAR" property="menuName" />
+    <result column="req_url" jdbcType="VARCHAR" property="reqUrl" />
+    <result column="is_main" jdbcType="INTEGER" property="isMain" />
+    <result column="icon" jdbcType="VARCHAR" property="icon" />
+    <result column="authority_level" jdbcType="INTEGER" property="authorityLevel" />
+  </resultMap>
+  <insert id="insert" parameterType="org.beckoning.web.loading.management.modle.MenuInfo">
+    insert into tbl_sys_menu_info (menu_id, menu_name, req_url, 
+      is_main, icon, authority_level
+      )
+    values (#{menuId,jdbcType=INTEGER}, #{menuName,jdbcType=VARCHAR}, #{reqUrl,jdbcType=VARCHAR}, 
+      #{isMain,jdbcType=INTEGER}, #{icon,jdbcType=VARCHAR}, #{authorityLevel,jdbcType=INTEGER}
+      )
+  </insert>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select menu_id, menu_name, req_url, is_main, icon, authority_level
+    from tbl_sys_menu_info
+  </select>
+</mapper>
