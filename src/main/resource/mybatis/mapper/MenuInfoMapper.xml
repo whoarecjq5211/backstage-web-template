@@ -2,13 +2,17 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.beckoning.web.loading.management.mapper.MenuInfoMapper">
   <resultMap id="BaseResultMap" type="org.beckoning.web.loading.management.modle.MenuInfo">
-    <result column="menu_id" jdbcType="INTEGER" property="menuId" />
+    <id column="menu_id" jdbcType="INTEGER" property="menuId" />
     <result column="menu_name" jdbcType="VARCHAR" property="menuName" />
     <result column="req_url" jdbcType="VARCHAR" property="reqUrl" />
     <result column="is_main" jdbcType="INTEGER" property="isMain" />
     <result column="icon" jdbcType="VARCHAR" property="icon" />
     <result column="authority_level" jdbcType="INTEGER" property="authorityLevel" />
   </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tbl_sys_menu_info
+    where menu_id = #{menuId,jdbcType=INTEGER}
+  </delete>
   <insert id="insert" parameterType="org.beckoning.web.loading.management.modle.MenuInfo">
     insert into tbl_sys_menu_info (menu_id, menu_name, req_url, 
       is_main, icon, authority_level
@@ -17,6 +21,20 @@
       #{isMain,jdbcType=INTEGER}, #{icon,jdbcType=VARCHAR}, #{authorityLevel,jdbcType=INTEGER}
       )
   </insert>
+  <update id="updateByPrimaryKey" parameterType="org.beckoning.web.loading.management.modle.MenuInfo">
+    update tbl_sys_menu_info
+    set menu_name = #{menuName,jdbcType=VARCHAR},
+      req_url = #{reqUrl,jdbcType=VARCHAR},
+      is_main = #{isMain,jdbcType=INTEGER},
+      icon = #{icon,jdbcType=VARCHAR},
+      authority_level = #{authorityLevel,jdbcType=INTEGER}
+    where menu_id = #{menuId,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select menu_id, menu_name, req_url, is_main, icon, authority_level
+    from tbl_sys_menu_info
+    where menu_id = #{menuId,jdbcType=INTEGER}
+  </select>
   <select id="selectAll" resultMap="BaseResultMap">
     select menu_id, menu_name, req_url, is_main, icon, authority_level
     from tbl_sys_menu_info
